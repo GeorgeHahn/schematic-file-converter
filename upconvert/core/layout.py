@@ -138,6 +138,8 @@ class Image:
                         segments[-1].append(points[point_idx])
                         if tags[point_idx] & (1 << 0) and point_idx < (len(points)-1):
                             segments.append([copy.deepcopy(points[point_idx]),])
+                        elif point_idx < (len(points)-1):
+                            segments.append([copy.deepcopy(points[point_idx]),])
 
                     # take the fist and last points of each segment (the non-control points). To approximate the curves
                     # using straight lines.
