@@ -127,23 +127,12 @@ class Image:
                 for contour_idx in range(len(outline.contours)):
                     end = outline.contours[contour_idx]
                     points = [Point(t[0], t[1]) for t in outline.points[start:end+1]]
-                    tags = outline.tags[start:end+1]
+
                     # Close the contour by repeating the last point.
                     points.append(copy.deepcopy(points[0]))
-                    tags.append(copy.deepcopy(tags[0]))
 
-                    segments = [[points[0], ], ]
-                    # Group points into segments. The tag identifies real vs control points.
-                    for point_idx in range(1, len(points) ):
-                        segments[-1].append(points[point_idx])
-                        if tags[point_idx] & (1 << 0) and point_idx < (len(points)-1):
-                            segments.append([copy.deepcopy(points[point_idx]),])
-                        elif point_idx < (len(points)-1):
-                            segments.append([copy.deepcopy(points[point_idx]),])
-
-                    # take the fist and last points of each segment (the non-control points). To approximate the curves
-                    # using straight lines.
-                    glyph_contours.append([[segment[0], segment[-1]] for segment in segments])
+                    # Copy all points in this contour
+                    glyph_contours.append([[copy.deepcopy(points[i]), copy.deepcopy(points[i +1])] for i in range(0, len(points) - 1)])
 
                     start = end+1
 
