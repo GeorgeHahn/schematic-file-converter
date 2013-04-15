@@ -181,5 +181,14 @@ class Design:
             # TODO(shamer): write out:
             # Trace segments
             # generated objects
+            
+            # Layout units?
+            "layer_options": [s.json() for s in self.layer_options],
+            "trace_segments": [s.json() for s in self.trace_segments],
+            "gen_objs": [s.json() for s in self.layout_objects],
+            "paths": [s.json() for s in self.paths],
+            "pours": [s.json() for s in self.pours],
+            "text": [s.json() for s in self.pcb_text],
+            
             #"layout": self.layout.json() if self.layout is not None else None
             }
